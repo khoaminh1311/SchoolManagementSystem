@@ -2,24 +2,24 @@ package PROJECT_SchoolManagementSystem;
 
 import java.util.Date;
 
+// Lớp đại diện cho giáo viên, kế thừa từ Person
 public class Teacher extends Person {
 
-    int numberOfClasses;
-    double baseSalary;
+    private int numberOfClasses; // Số lớp dạy
+    private double baseSalary; // Lương cơ bản
 
+    // Constructor với tham số
     public Teacher(int numberOfClasses, double baseSalary, String id, String name, Date dateOfBirth) {
-        super(id, name, dateOfBirth);
-        this.numberOfClasses = numberOfClasses;
-        this.baseSalary = baseSalary;
+        super(id, name, dateOfBirth); // Gọi constructor lớp cha
+        this.numberOfClasses = numberOfClasses; // Gán giá trị số lớp
+        this.baseSalary = baseSalary; // Gán giá trị lương cơ bản
     }
 
+    // Constructor mặc định
     public Teacher() {
     }
 
-    public double caluclateIncome() {
-        return numberOfClasses * baseSalary;
-    }
-
+    // Getter và Setter cho số lớp
     public int getNumberOfClasses() {
         return numberOfClasses;
     }
@@ -28,6 +28,7 @@ public class Teacher extends Person {
         this.numberOfClasses = numberOfClasses;
     }
 
+    // Getter và Setter cho lương cơ bản
     public double getBaseSalary() {
         return baseSalary;
     }

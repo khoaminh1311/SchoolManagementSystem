@@ -2,27 +2,23 @@ package PROJECT_SchoolManagementSystem;
 
 import java.util.Date;
 
+// Lớp đại diện cho sinh viên, kế thừa từ Person
 public class Student extends Person {
 
-    private double gpa, tutionFee;
+    private double gpa, tuitionFee; // Thuộc tính GPA và học phí
 
-    public Student(double gpa, double tutionFee, String id, String name, Date dateOfBirth) {
-        super(id, name, dateOfBirth);
-        this.gpa = gpa;
-        this.tutionFee = tutionFee;
+    // Constructor với tham số
+    public Student(double gpa, double tuitionFee, String id, String name, Date dateOfBirth) {
+        super(id, name, dateOfBirth); // Gọi constructor lớp cha
+        this.gpa = gpa; // Gán giá trị GPA
+        this.tuitionFee = tuitionFee; // Gán giá trị học phí
     }
 
+    // Constructor mặc định
     public Student() {
     }
 
-    public double caluclateIncome() {
-        if (gpa > 3.5) {
-            return tutionFee * 0.5;
-        } else {
-            return tutionFee;
-        }
-    }
-
+    // Getter và Setter cho GPA
     public double getGpa() {
         return gpa;
     }
@@ -31,11 +27,12 @@ public class Student extends Person {
         this.gpa = gpa;
     }
 
-    public double getTutionFee() {
-        return tutionFee;
+    // Getter và Setter cho học phí
+    public double getTuitionFee() {
+        return tuitionFee;
     }
 
-    public void setTutionFee(double tutionFee) {
-        this.tutionFee = tutionFee;
+    public void setTuitionFee(double tuitionFee) {
+        this.tuitionFee = tuitionFee;
     }
 }

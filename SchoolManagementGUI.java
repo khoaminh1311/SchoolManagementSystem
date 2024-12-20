@@ -8,186 +8,187 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class SchoolManagementGUI {
+public class SchoolManagementGUI { // Lớp chính của giao diện quản lý trường học.
 
-    private PersonList list;
+    private PersonList list; // Biến để quản lý danh sách các đối tượng Person.
 
-    public SchoolManagementGUI() {
-        list = new PersonList();
-        createAndShowGUI();
+    public SchoolManagementGUI() { // Constructor của lớp.
+        list = new PersonList(); // Khởi tạo danh sách Person.
+        createAndShowGUI(); // Gọi phương thức tạo và hiển thị GUI.
     }
 
-    private void createAndShowGUI() {
-        JFrame frame = new JFrame("School Management System");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 500);
+    private void createAndShowGUI() { // Phương thức tạo giao diện người dùng.
+        JFrame frame = new JFrame("School Management System"); // Tạo khung JFrame với tiêu đề.
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Đặt hành động khi đóng cửa sổ.
+        frame.setSize(600, 500); // Đặt kích thước khung.
 
-        JButton addStudentButton = new JButton("Add new student");
-        JButton addTeacherButton = new JButton("Add new teacher");
-        JButton deletePersonButton = new JButton("Delete person by ID");
-        JButton displayAllPersonButton = new JButton("Display all person");
-        JButton findPersonButton = new JButton("Find person by ID");
-        JButton countPersonButton = new JButton("Count person in school");
-        JButton findtop3StudentButton = new JButton("Find top 3 students with highest GPA");
+        JButton addStudentButton = new JButton("Add new student"); // Tạo nút để thêm sinh viên.
+        JButton addTeacherButton = new JButton("Add new teacher"); // Tạo nút để thêm giáo viên.
+        JButton deletePersonButton = new JButton("Delete person by ID"); // Tạo nút để xóa một người theo ID.
+        JButton displayAllPersonButton = new JButton("Display all person"); // Tạo nút để hiển thị tất cả.
+        JButton findPersonButton = new JButton("Find person by ID"); // Tạo nút để tìm người theo ID.
+        JButton countPersonButton = new JButton("Count person in school"); // Tạo nút để đếm số người trong trường.
+        JButton findtop3StudentButton = new JButton("Find top 3 students with highest GPA"); // Tạo nút để tìm top 3 sinh viên.
 
-        JPanel panel = new JPanel();
-        panel.add(addStudentButton);
-        panel.add(addTeacherButton);
-        panel.add(deletePersonButton);
-        panel.add(displayAllPersonButton);
-        panel.add(findPersonButton);
-        panel.add(countPersonButton);
-        panel.add(findtop3StudentButton);
-        frame.add(panel);
-        frame.setVisible(true);
+        JPanel panel = new JPanel(); // Tạo bảng điều khiển để chứa các nút.
+        panel.add(addStudentButton); // Thêm nút thêm sinh viên vào bảng.
+        panel.add(addTeacherButton); // Thêm nút thêm giáo viên vào bảng.
+        panel.add(deletePersonButton); // Thêm nút xóa người vào bảng.
+        panel.add(displayAllPersonButton); // Thêm nút hiển thị tất cả vào bảng.
+        panel.add(findPersonButton); // Thêm nút tìm người vào bảng.
+        panel.add(countPersonButton); // Thêm nút đếm người vào bảng.
+        panel.add(findtop3StudentButton); // Thêm nút tìm top 3 sinh viên vào bảng.
+        frame.add(panel); // Thêm bảng điều khiển vào khung.
+        frame.setVisible(true); // Hiển thị khung giao diện.
 
-        addStudentButton.addActionListener(new ActionListener() {
+        addStudentButton.addActionListener(new ActionListener() { // Thêm sự kiện cho nút thêm sinh viên.
             @Override
-            public void actionPerformed(ActionEvent e) {
-                String id = JOptionPane.showInputDialog(frame,"Enter ID: ");
-                String name = JOptionPane.showInputDialog(frame,"Enter full name: ");
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                dateFormat.setLenient(false);
-                Date dateOfBirth = null;
-                while (true) {
-                    String inputDate = JOptionPane.showInputDialog(frame,"Enter date of birth (dd/MM/yyyy): ");
+            public void actionPerformed(ActionEvent e) { // Hành động khi bấm nút.
+                String id = JOptionPane.showInputDialog(frame, "Enter ID: "); // Nhập ID từ người dùng.
+                String name = JOptionPane.showInputDialog(frame, "Enter full name: "); // Nhập tên từ người dùng.
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Định dạng ngày.
+                dateFormat.setLenient(false); // Đảm bảo định dạng ngày nghiêm ngặt.
+                Date dateOfBirth = null; // Biến lưu ngày sinh.
+                while (true) { // Lặp để đảm bảo nhập đúng ngày sinh.
+                    String inputDate = JOptionPane.showInputDialog(frame, "Enter date of birth (dd/MM/yyyy): "); // Nhập ngày sinh.
                     try {
-                        dateOfBirth = dateFormat.parse(inputDate);
-                        break;
-                    } catch (ParseException ex) {
+                        dateOfBirth = dateFormat.parse(inputDate); // Thử phân tích ngày.
+                        break; // Nếu thành công, thoát vòng lặp.
+                    } catch (ParseException ex) { // Nếu ngày không hợp lệ.
                         JOptionPane.showMessageDialog(frame, "Invalid date format. Please enter again in the format dd/MM/yyyy.",
-                                "Error", JOptionPane.ERROR_MESSAGE);
+                                "Error", JOptionPane.ERROR_MESSAGE); // Hiển thị thông báo lỗi.
                     }
                 }
-                double gpa = 0.0;
-                while (true) {
-
-                    String inputGpa = JOptionPane.showInputDialog(frame,"Enter gpa: ");
+                double gpa = 0.0; // Biến lưu điểm GPA.
+                while (true) { // Lặp để đảm bảo nhập đúng GPA.
+                    String inputGpa = JOptionPane.showInputDialog(frame, "Enter gpa: "); // Nhập GPA.
                     try {
-                        gpa = Double.parseDouble(inputGpa);
-                        if (gpa >= 0.0 && gpa <= 4.0) {
-                            break;
+                        gpa = Double.parseDouble(inputGpa); // Thử chuyển đổi GPA sang số thực.
+                        if (gpa >= 0.0 && gpa <= 4.0) { // Kiểm tra GPA trong khoảng hợp lệ.
+                            break; // Nếu đúng, thoát vòng lặp.
                         } else {
-                            JOptionPane.showMessageDialog(frame, "GPA must be between 0.0 and 4.0", "Error", JOptionPane.ERROR_MESSAGE);
-
+                            JOptionPane.showMessageDialog(frame, "GPA must be between 0.0 and 4.0", "Error", JOptionPane.ERROR_MESSAGE); // Hiển thị lỗi.
                         }
-
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(frame, "Invalid GPA. Please enter again", "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (NumberFormatException ex) { // Nếu không phải số thực.
+                        JOptionPane.showMessageDialog(frame, "Invalid GPA. Please enter again", "Error", JOptionPane.ERROR_MESSAGE); // Hiển thị lỗi.
                     }
                 }
-                double tutionFee = 0.0;
-                String inputTutionFee = JOptionPane.showInputDialog(frame,"Enter tution fee: ");
-                tutionFee = Double.parseDouble(inputTutionFee);
-                list.addPerson(new Student(gpa, tutionFee, id, name, dateOfBirth));
-                JOptionPane.showMessageDialog(frame, "Add student successfully");
+                double tutionFee = 0.0; // Biến lưu học phí.
+                String inputTutionFee = JOptionPane.showInputDialog(frame, "Enter tution fee: "); // Nhập học phí.
+                tutionFee = Double.parseDouble(inputTutionFee); // Chuyển đổi học phí sang số thực.
+                list.addPerson(new Student(gpa, tutionFee, id, name, dateOfBirth)); // Thêm sinh viên mới vào danh sách.
+                JOptionPane.showMessageDialog(frame, "Add student successfully"); // Hiển thị thông báo thành công.
             }
         });
-        addTeacherButton.addActionListener(new ActionListener() {
+
+        addTeacherButton.addActionListener(new ActionListener() { // Thêm sự kiện cho nút thêm giáo viên.
             @Override
-            public void actionPerformed(ActionEvent e) {
-                String id = JOptionPane.showInputDialog(frame,"Enter ID: ");
-                String name = JOptionPane.showInputDialog(frame,"Enter full name: ");
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                dateFormat.setLenient(false);
-                Date dateOfBirth = null;
-                while (true) {
-                    String inputDate = JOptionPane.showInputDialog(frame,"Enter date of birth (dd/MM/yyyy): ");
+            public void actionPerformed(ActionEvent e) { // Hành động khi bấm nút.
+                String id = JOptionPane.showInputDialog(frame, "Enter ID: "); // Nhập ID từ người dùng.
+                String name = JOptionPane.showInputDialog(frame, "Enter full name: "); // Nhập tên từ người dùng.
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Định dạng ngày.
+                dateFormat.setLenient(false); // Đảm bảo định dạng ngày nghiêm ngặt.
+                Date dateOfBirth = null; // Biến lưu ngày sinh.
+                while (true) { // Lặp để đảm bảo nhập đúng ngày sinh.
+                    String inputDate = JOptionPane.showInputDialog(frame, "Enter date of birth (dd/MM/yyyy): "); // Nhập ngày sinh.
                     try {
-                        dateOfBirth = dateFormat.parse(inputDate);
-                        break;
-                    } catch (ParseException ex) {
+                        dateOfBirth = dateFormat.parse(inputDate); // Thử phân tích ngày.
+                        break; // Nếu thành công, thoát vòng lặp.
+                    } catch (ParseException ex) { // Nếu ngày không hợp lệ.
                         JOptionPane.showMessageDialog(frame, "Invalid date format. Please enter again in the format dd/MM/yyyy.",
-                                "Error", JOptionPane.ERROR_MESSAGE);
+                                "Error", JOptionPane.ERROR_MESSAGE); // Hiển thị thông báo lỗi.
                     }
                 }
-                int numberOfClasses = 0;
-                String inputClasses = JOptionPane.showInputDialog(frame,"Enter the number of class: ");
-                numberOfClasses = Integer.parseInt(inputClasses);
-                double baseSalary = 0.0;
-                String inputSalary = JOptionPane.showInputDialog(frame,"Enter base salary: ");
-                baseSalary = Double.parseDouble(inputSalary);
-                list.addPerson(new Teacher(numberOfClasses, baseSalary, id, name, dateOfBirth));
-                JOptionPane.showMessageDialog(frame, "Add teacher successfully");
+                int numberOfClasses = 0; // Biến lưu số lớp.
+                String inputClasses = JOptionPane.showInputDialog(frame, "Enter the number of class: "); // Nhập số lớp.
+                numberOfClasses = Integer.parseInt(inputClasses); // Chuyển đổi số lớp sang số nguyên.
+                double baseSalary = 0.0; // Biến lưu lương cơ bản.
+                String inputSalary = JOptionPane.showInputDialog(frame, "Enter base salary: "); // Nhập lương cơ bản.
+                baseSalary = Double.parseDouble(inputSalary); // Chuyển đổi lương cơ bản sang số thực.
+                list.addPerson(new Teacher(numberOfClasses, baseSalary, id, name, dateOfBirth)); // Thêm giáo viên mới vào danh sách.
+                JOptionPane.showMessageDialog(frame, "Add teacher successfully"); // Hiển thị thông báo thành công.
             }
         });
-        deletePersonButton.addActionListener(new ActionListener() {
+        deletePersonButton.addActionListener(new ActionListener() { // Thêm sự kiện cho nút xóa người theo ID.
             @Override
-            public void actionPerformed(ActionEvent e) {
-                String idDelete = JOptionPane.showInputDialog(frame,"Enter id to delete: ");
-                String message = list.deletePersonByID(idDelete);
-                JOptionPane.showMessageDialog(frame, message);
+            public void actionPerformed(ActionEvent e) { // Hành động khi bấm nút.
+                String idDelete = JOptionPane.showInputDialog(frame, "Enter id to delete: "); // Nhập ID để xóa.
+                String message = list.deletePersonByID(idDelete); // Gọi phương thức xóa người trong danh sách bằng ID.
+                JOptionPane.showMessageDialog(frame, message); // Hiển thị kết quả (thành công hoặc thất bại).
             }
         });
-        displayAllPersonButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ArrayList<Person> people = list.displayAll();
-                StringBuilder message = new StringBuilder("Display all people in school: \n");
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                for (Person p : people) {
-                    if (p instanceof Student) {
-                        message.append("STUDENT ").append("ID: ").append(p.getId()).append("; ").append("Name: ").append(p.getName()).append("; ").append("Date of birth: ").append(dateFormat.format(p.getDateOfBirth())).append("; ").append("GPA: ").append(((Student) p).getGpa()).append("; ").append("Tution fee: ").append(((Student) p).getTutionFee()).append("\n");
-                    } else if (p instanceof Teacher) {
-                        message.append("TEACHER ").append("ID: ").append(p.getId()).append("; ").append("Name: ").append(p.getName()).append("; ").append("Date of birth: ").append(dateFormat.format(p.getDateOfBirth())).append("; ").append("Number of classes: ").append(((Teacher) p).getNumberOfClasses()).append("; ").append("Base salary: ").append(((Teacher) p).getBaseSalary()).append("\n");
-                    }
-                }
-                if (people.isEmpty()) {
-                    JOptionPane.showMessageDialog(frame, "No person in the list");
-                } else {
-                    JOptionPane.showMessageDialog(frame, message.toString());
-                }
-            }
-        });
-        findPersonButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-                String idFind = JOptionPane.showInputDialog(frame,"Enter id to find: ");
-                Person find = list.findPersonByID(idFind);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                if (find != null) {
-                    if (find instanceof Student) {
+        displayAllPersonButton.addActionListener(new ActionListener() { // Thêm sự kiện cho nút hiển thị tất cả.
+            @Override
+            public void actionPerformed(ActionEvent e) { // Hành động khi bấm nút.
+                ArrayList<Person> people = list.displayAll(); // Lấy danh sách tất cả các đối tượng trong trường.
+                StringBuilder message = new StringBuilder("Display all people in school: \n"); // Chuẩn bị chuỗi để hiển thị danh sách.
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Định dạng ngày tháng.
+                for (Person p : people) { // Duyệt qua danh sách các đối tượng.
+                    if (p instanceof Student) { // Nếu đối tượng là sinh viên.
+                        message.append("STUDENT ").append("ID: ").append(p.getId()).append("; ").append("Name: ").append(p.getName()).append("; ").append("Date of birth: ").append(dateFormat.format(p.getDateOfBirth())).append("; ").append("GPA: ").append(((Student) p).getGpa()).append("; ").append("Tution fee: ").append(((Student) p).getTuitionFee()).append("\n"); // Thêm thông tin sinh viên vào chuỗi.
+                    } else if (p instanceof Teacher) { // Nếu đối tượng là giáo viên.
+                        message.append("TEACHER ").append("ID: ").append(p.getId()).append("; ").append("Name: ").append(p.getName()).append("; ").append("Date of birth: ").append(dateFormat.format(p.getDateOfBirth())).append("; ").append("Number of classes: ").append(((Teacher) p).getNumberOfClasses()).append("; ").append("Base salary: ").append(((Teacher) p).getBaseSalary()).append("\n"); // Thêm thông tin giáo viên vào chuỗi.
+                    }
+                }
+                if (people.isEmpty()) { // Nếu danh sách rỗng.
+                    JOptionPane.showMessageDialog(frame, "No person in the list"); // Hiển thị thông báo không có người nào.
+                } else {
+                    JOptionPane.showMessageDialog(frame, message.toString()); // Hiển thị danh sách người trong trường.
+                }
+            }
+        });
+
+        findPersonButton.addActionListener(new ActionListener() { // Thêm sự kiện cho nút tìm người theo ID.
+            @Override
+            public void actionPerformed(ActionEvent e) { // Hành động khi bấm nút.
+                String idFind = JOptionPane.showInputDialog(frame, "Enter id to find: "); // Nhập ID để tìm.
+                Person find = list.findPersonByID(idFind); // Tìm kiếm đối tượng trong danh sách bằng ID.
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Định dạng ngày tháng.
+                if (find != null) { // Nếu tìm thấy đối tượng.
+                    if (find instanceof Student) { // Nếu là sinh viên.
                         JOptionPane.showMessageDialog(frame, "STUDENT" + "\n"
                                 + "ID: " + find.getId() + "\n"
                                 + "Name: " + find.getName() + "\n"
                                 + "Date of Birth: " + dateFormat.format(find.getDateOfBirth()) + "\n"
                                 + "GPA: " + ((Student) find).getGpa() + "\n"
-                                + "Tution fee: " + ((Student) find).getTutionFee());
-                    } else if (find instanceof Teacher) {
+                                + "Tution fee: " + ((Student) find).getTuitionFee()); // Hiển thị thông tin sinh viên.
+                    } else if (find instanceof Teacher) { // Nếu là giáo viên.
                         JOptionPane.showMessageDialog(frame, "TEACHER" + "\n"
                                 + "ID: " + find.getId() + "\n"
                                 + "Name: " + find.getName() + "\n"
                                 + "Date of Birth: " + dateFormat.format(find.getDateOfBirth()) + "\n"
                                 + "Number of classes: " + ((Teacher) find).getNumberOfClasses() + "\n"
-                                + "Base salary: " + ((Teacher) find).getBaseSalary());
+                                + "Base salary: " + ((Teacher) find).getBaseSalary()); // Hiển thị thông tin giáo viên.
                     }
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Cannot find person with ID: " + idFind);
+                } else { // Nếu không tìm thấy đối tượng.
+                    JOptionPane.showMessageDialog(frame, "Cannot find person with ID: " + idFind); // Hiển thị thông báo không tìm thấy.
                 }
             }
         });
-        countPersonButton.addActionListener(new ActionListener() {
+
+        countPersonButton.addActionListener(new ActionListener() { // Thêm sự kiện cho nút đếm số lượng người.
             @Override
-            public void actionPerformed(ActionEvent e) {
-                String message = list.countPerson();
-                JOptionPane.showMessageDialog(frame, message);
+            public void actionPerformed(ActionEvent e) { // Hành động khi bấm nút.
+                String message = list.countPerson(); // Gọi phương thức đếm số lượng người trong trường.
+                JOptionPane.showMessageDialog(frame, message); // Hiển thị kết quả số lượng người.
             }
         });
-        findtop3StudentButton.addActionListener(new ActionListener() {
+
+        findtop3StudentButton.addActionListener(new ActionListener() { // Thêm sự kiện cho nút tìm top 3 sinh viên.
             @Override
-            public void actionPerformed(ActionEvent e) {
-                ArrayList<Student> top3Student = list.findTop3Student();
-                StringBuilder message = new StringBuilder("Top 3 students with highest GPA\n");
-                for (Student student : top3Student) {
-                    message.append("STUDENT ").append("ID: ").append(student.getId()).append("; ").append("GPA: ").append(student.getGpa()).append("\n");
+            public void actionPerformed(ActionEvent e) { // Hành động khi bấm nút.
+                ArrayList<Student> top3Student = list.findTop3Student(); // Lấy danh sách top 3 sinh viên có GPA cao nhất.
+                StringBuilder message = new StringBuilder("Top 3 students with highest GPA\n"); // Chuẩn bị chuỗi để hiển thị.
+                for (Student student : top3Student) { // Duyệt qua danh sách top 3 sinh viên.
+                    message.append("STUDENT ").append("ID: ").append(student.getId()).append("; ").append("GPA: ").append(student.getGpa()).append("\n"); // Thêm thông tin sinh viên vào chuỗi.
                 }
-                JOptionPane.showMessageDialog(frame, message);
+                JOptionPane.showMessageDialog(frame, message); // Hiển thị danh sách top 3 sinh viên.
             }
         });
     }
 
-    public static void main(String[] args) {
-        new SchoolManagementGUI();
+    public static void main(String[] args) { // Phương thức main để chạy chương trình.
+        new SchoolManagementGUI(); // Tạo đối tượng GUI và hiển thị.
     }
 }
