@@ -44,40 +44,40 @@ public class SchoolManagementGUI {
         addStudentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id = JOptionPane.showInputDialog("Enter ID: ");
-                String name = JOptionPane.showInputDialog("Enter full name: ");
+                String id = JOptionPane.showInputDialog(frame,"Enter ID: ");
+                String name = JOptionPane.showInputDialog(frame,"Enter full name: ");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 dateFormat.setLenient(false);
                 Date dateOfBirth = null;
                 while (true) {
-                    String inputDate = JOptionPane.showInputDialog("Enter date of birth (dd/MM/yyyy): ");
+                    String inputDate = JOptionPane.showInputDialog(frame,"Enter date of birth (dd/MM/yyyy): ");
                     try {
                         dateOfBirth = dateFormat.parse(inputDate);
                         break;
                     } catch (ParseException ex) {
-                        JOptionPane.showMessageDialog(null, "Invalid date format. Please enter again in the format dd/MM/yyyy.",
+                        JOptionPane.showMessageDialog(frame, "Invalid date format. Please enter again in the format dd/MM/yyyy.",
                                 "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 double gpa = 0.0;
                 while (true) {
 
-                    String inputGpa = JOptionPane.showInputDialog("Enter gpa: ");
+                    String inputGpa = JOptionPane.showInputDialog(frame,"Enter gpa: ");
                     try {
                         gpa = Double.parseDouble(inputGpa);
                         if (gpa >= 0.0 && gpa <= 4.0) {
                             break;
                         } else {
-                            JOptionPane.showMessageDialog(null, "GPA must be between 0.0 and 4.0", "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(frame, "GPA must be between 0.0 and 4.0", "Error", JOptionPane.ERROR_MESSAGE);
 
                         }
 
                     } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(null, "Invalid GPA. Please enter again", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(frame, "Invalid GPA. Please enter again", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 double tutionFee = 0.0;
-                String inputTutionFee = JOptionPane.showInputDialog("Enter tution fee: ");
+                String inputTutionFee = JOptionPane.showInputDialog(frame,"Enter tution fee: ");
                 tutionFee = Double.parseDouble(inputTutionFee);
                 list.addPerson(new Student(gpa, tutionFee, id, name, dateOfBirth));
                 JOptionPane.showMessageDialog(frame, "Add student successfully");
@@ -86,26 +86,26 @@ public class SchoolManagementGUI {
         addTeacherButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id = JOptionPane.showInputDialog("Enter ID: ");
-                String name = JOptionPane.showInputDialog("Enter full name: ");
+                String id = JOptionPane.showInputDialog(frame,"Enter ID: ");
+                String name = JOptionPane.showInputDialog(frame,"Enter full name: ");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 dateFormat.setLenient(false);
                 Date dateOfBirth = null;
                 while (true) {
-                    String inputDate = JOptionPane.showInputDialog("Enter date of birth (dd/MM/yyyy): ");
+                    String inputDate = JOptionPane.showInputDialog(frame,"Enter date of birth (dd/MM/yyyy): ");
                     try {
                         dateOfBirth = dateFormat.parse(inputDate);
                         break;
                     } catch (ParseException ex) {
-                        JOptionPane.showMessageDialog(null, "Invalid date format. Please enter again in the format dd/MM/yyyy.",
+                        JOptionPane.showMessageDialog(frame, "Invalid date format. Please enter again in the format dd/MM/yyyy.",
                                 "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 int numberOfClasses = 0;
-                String inputClasses = JOptionPane.showInputDialog("Enter the number of class: ");
+                String inputClasses = JOptionPane.showInputDialog(frame,"Enter the number of class: ");
                 numberOfClasses = Integer.parseInt(inputClasses);
                 double baseSalary = 0.0;
-                String inputSalary = JOptionPane.showInputDialog("Enter base salary: ");
+                String inputSalary = JOptionPane.showInputDialog(frame,"Enter base salary: ");
                 baseSalary = Double.parseDouble(inputSalary);
                 list.addPerson(new Teacher(numberOfClasses, baseSalary, id, name, dateOfBirth));
                 JOptionPane.showMessageDialog(frame, "Add teacher successfully");
@@ -114,7 +114,7 @@ public class SchoolManagementGUI {
         deletePersonButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String idDelete = JOptionPane.showInputDialog("Enter id to delete: ");
+                String idDelete = JOptionPane.showInputDialog(frame,"Enter id to delete: ");
                 String message = list.deletePersonByID(idDelete);
                 JOptionPane.showMessageDialog(frame, message);
             }
@@ -133,7 +133,7 @@ public class SchoolManagementGUI {
                     }
                 }
                 if (people.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "No person in the list");
+                    JOptionPane.showMessageDialog(frame, "No person in the list");
                 } else {
                     JOptionPane.showMessageDialog(frame, message.toString());
                 }
@@ -143,27 +143,27 @@ public class SchoolManagementGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String idFind = JOptionPane.showInputDialog("Enter id to find: ");
+                String idFind = JOptionPane.showInputDialog(frame,"Enter id to find: ");
                 Person find = list.findPersonByID(idFind);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 if (find != null) {
                     if (find instanceof Student) {
-                        JOptionPane.showMessageDialog(null, "STUDENT" + "\n"
+                        JOptionPane.showMessageDialog(frame, "STUDENT" + "\n"
                                 + "ID: " + find.getId() + "\n"
                                 + "Name: " + find.getName() + "\n"
                                 + "Date of Birth: " + dateFormat.format(find.getDateOfBirth()) + "\n"
                                 + "GPA: " + ((Student) find).getGpa() + "\n"
                                 + "Tution fee: " + ((Student) find).getTutionFee());
                     } else if (find instanceof Teacher) {
-                        JOptionPane.showMessageDialog(null, "TEACHER" + "\n"
+                        JOptionPane.showMessageDialog(frame, "TEACHER" + "\n"
                                 + "ID: " + find.getId() + "\n"
                                 + "Name: " + find.getName() + "\n"
                                 + "Date of Birth: " + dateFormat.format(find.getDateOfBirth()) + "\n"
                                 + "Number of classes: " + ((Teacher) find).getNumberOfClasses() + "\n"
-                                + "Tution fee: " + ((Teacher) find).getBaseSalary());
+                                + "Base salary: " + ((Teacher) find).getBaseSalary());
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Cannot find person with ID: " + idFind);
+                    JOptionPane.showMessageDialog(frame, "Cannot find person with ID: " + idFind);
                 }
             }
         });
